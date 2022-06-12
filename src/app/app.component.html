@@ -1,0 +1,17 @@
+<div id="myDiv" class="header">
+  <h2>Nearby Search</h2>
+  <input type="text" id="myInput" placeholder="example input(ltd,lng,radius): 40.9704247,29.1174203,400 "
+    [(ngModel)]="locationInput" (keyup.enter)="search(locationInput)">
+  <span (click)="search(locationInput)" class="searchBtn">Search</span>
+</div>
+<agm-map [latitude]="originPlace.latitude" [longitude]="originPlace.longitude" (mapClick)="onChoseLocation($event)">
+  <agm-marker class="origin" *ngIf="locationChosen" [latitude]="originPlace.latitude"
+    [longitude]="originPlace.longitude"></agm-marker>
+
+  <agm-marker class="neighbor" *ngFor="let location of locations" [latitude]="location.latitude"
+    [longitude]="location.longitude" [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+    <agm-info-window #infoWindow>
+      {{location.name}}
+    </agm-info-window>
+  </agm-marker>
+</agm-map>
